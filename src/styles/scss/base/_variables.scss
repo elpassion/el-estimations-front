@@ -1,0 +1,42 @@
+$container-width: 1024px;
+$top-bar-height: 56px;
+$side-bar-width: 300px;
+$level-side-bar-width: $side-bar-width;
+
+$spacing: (
+  tiny: 6px,
+  small: 10px,
+  default: 15px,
+  medium: 20px,
+  large: 30px,
+  xlarge: 50px,
+);
+
+$font-sizes: (
+  small: 14/16 * 1rem,
+  default: 1rem,
+  large: 20/16 * 1rem,
+);
+
+$font-weights: (
+  default: 400,
+  semibold: 500,
+  bold: 700,
+);
+
+$radii: (
+  default: 4px,
+);
+
+$shadow-default: 0 0 0 1px rgba($c-shadow-base, .05), 0 1px 3px 0 rgba($c-shadow-base, .15);
+
+$duration-default: .25s;
+
+$button-height: 2.5em;
+
+$table-padding-side: get($spacing);
+$table-padding-horizontal: $table-padding-side/2;
+$table-padding-vertical: get($spacing, 'small');
+
+$checkbox-size: 16px;
+$input-side-padding: .75em;

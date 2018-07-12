@@ -1,0 +1,52 @@
+.button {
+  $_padding: 1.25em;
+  $_border: 2px;
+  $_line-height: calc(#{$button-height} - #{$_border});
+  $_radius: get($radii);
+
+  display: inline-block;
+  padding: 0 $_padding;
+  font-weight: 900;
+  line-height: $_line-height;
+  color: $white;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: $c-accent;
+  border: $_border solid $c-accent;
+  border-radius: $_radius;
+  transition: background-color $duration-default, color $duration-default, border-color $duration-default;
+
+  &:hover {
+    color: $white;
+    background-color: $c-accent-hover;
+    border-color: $c-accent-hover;
+  }
+
+  &:disabled {
+    &,
+    &:hover {
+      background-color: $c-disabled;
+      border-color: $c-disabled;
+    }
+  }
+
+  &--secondary {
+    color: $c-accent;
+    background-color: white;
+
+    &:hover {
+      color: $c-accent-hover;
+      background-color: $white;
+      border-color: $c-accent-hover;
+    }
+  }
+
+  &--wide {
+    width: 100%;
+  }
+
+  &--spaced {
+    margin-top: get($spacing, 'medium');
+  }
+}

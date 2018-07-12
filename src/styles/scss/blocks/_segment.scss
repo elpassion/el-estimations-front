@@ -1,0 +1,11 @@
+.segment {
+  $_padding: get($spacing, 'medium');
+
+  padding: $_padding 0;
+  border-bottom: 1px solid $c-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+

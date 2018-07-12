@@ -1,0 +1,70 @@
+%font-default {
+  font-family: Montserrat, sans-serif;
+}
+
+%font-text {
+  @extend %font-default;
+
+  font-size: get($font-sizes);
+  font-weight: 400;
+  color: $c-text;
+}
+
+%font-heading {
+  @extend %font-default;
+  @extend %margin-clean;
+
+  margin: 0 0 get($spacing, 'medium');
+  font-size: get($font-sizes, 'medium');
+  font-weight: get($font-weights, 'bold');
+  line-height: 1.2;
+  color: $c-text-dark;
+}
+
+body {
+  @extend %font-text;
+}
+
+h1, h2, h3, h4, h5, h6 { /* stylelint-disable-line selector-list-comma-newline-after */
+  @extend %font-heading;
+}
+
+.heading {
+  @extend %font-heading;
+  @extend %margin-clean;
+
+  &--secondary {
+    font-weight: get($font-weights, 'semibold');
+  }
+
+  &--large {
+    font-size: get($font-sizes, 'large');
+  }
+}
+
+a {
+  font-weight: 800;
+  color: $c-accent;
+  transition: color $duration-default;
+
+  &:hover {
+    color: $c-accent-hover;
+  }
+}
+
+.text {
+  &--light {
+    color: $c-text-light;
+  }
+
+  &--error {
+    color: $c-error;
+  }
+
+  &--spaced {
+    @extend %margin-clean;
+
+    margin-bottom: get($spacing);
+  }
+}
+

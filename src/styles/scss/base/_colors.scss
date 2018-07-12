@@ -1,0 +1,23 @@
+$white: #fff;
+$alabaster: #f7f7f7;
+$athens: #dce0e4;
+$mountain: #8f8e94;
+$ship: #3f3f44;
+$emerald: #28c23e;
+$ebony: #1d2738;
+$deep-red: #c41228;
+
+$c-text: $ship;
+$c-text-light: $mountain;
+$c-text-dark: $ebony;
+$c-background: $alabaster;
+$c-border: $athens;
+$c-border-dark: $ship;
+$c-accent: $emerald;
+$c-accent-hover: lighten($c-accent, 10%);
+$c-disabled: $mountain;
+$c-shadow-base: $ship;
+$c-error: $deep-red;
+$c-overlay: rgba($c-disabled, .3);
+
+$c-check-color: $c-accent;

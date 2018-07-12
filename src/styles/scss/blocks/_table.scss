@@ -1,0 +1,41 @@
+@mixin table-cell-padding($_vertical, $_horizontal, $_side) {
+  padding: $_vertical $_horizontal;
+  text-align: left;
+  border-bottom: 1px solid $c-border;
+
+  &:first-child {
+    padding-left: $_side;
+  }
+
+  &:last-child {
+    padding-right: $_side;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-size: map-get($font-sizes, 'tiny');
+  font-weight: 900;
+  border-bottom: 1px solid $c-border-dark;
+}
+
+td {
+  font-size: map-get($font-sizes, 'small');
+  border-bottom: 1px solid $c-border;
+}
+
+td,
+th {
+  @include table-cell-padding($table-padding-vertical, $table-padding-horizontal, $table-padding-side);
+
+  text-align: left;
+  border-bottom: 1px solid $c-border;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}

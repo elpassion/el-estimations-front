@@ -1,0 +1,43 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+p,
+figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  @extend %style-states;
+
+  padding: 0;
+  font: inherit;
+  line-height: 0;
+  background-color: transparent;
+  border: none;
+}
+
+a {
+  @extend %style-states;
+
+  color: initial;
+  text-decoration: none;
+}

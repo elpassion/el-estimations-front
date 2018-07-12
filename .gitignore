@@ -3,6 +3,10 @@
 # dependencies
 /node_modules
 
+#css
+.sass-cache
+/src/styles/css
+
 # testing
 /coverage
 

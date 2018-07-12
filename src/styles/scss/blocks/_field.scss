@@ -1,0 +1,92 @@
+%field-annotation-text {
+  max-width: 100%;
+  font-size: get($font-sizes, 'small');
+  color: $c-text-light;
+}
+
+%field-error-text {
+  @extend %field-annotation-text;
+
+  max-height: 0;
+  overflow: hidden;
+  color: $c-error;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-height $duration-default, opacity $duration-default;
+  will-change: max-height;
+}
+
+.field {
+  $_error-line-height: 1.2em;
+
+  @extend %margin-clean;
+
+  position: relative;
+  margin-top: get($spacing, 'medium');
+
+  &__label,
+  &__annotation,
+  &__error,
+  &__option,
+  &__input,
+  &__select {
+    @extend %margin-clean;
+
+    display: block;
+    width: 100%;
+    margin-bottom: get($spacing, 'small');
+  }
+
+  &__label {
+    font-size: get($font-sizes, 'small');
+  }
+
+  &__annotation {
+    @extend %field-annotation-text;
+  }
+
+  &__error {
+    @extend %field-error-text;
+  }
+
+  &__checkbox-label {
+    flex-grow: 1;
+  }
+
+  &--checkbox {
+    @extend %margin-clean;
+
+    display: flex;
+    align-items: center;
+    height: $button-height;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  &--has-error {
+    .field__label {
+      color: $c-error;
+    }
+
+    .field__input {
+      border-color: $c-error;
+    }
+
+    .field__select {
+      &,
+      &.is-open {
+        .Select-control {
+          border-color: $c-error;
+        }
+      }
+    }
+
+    .field__error {
+      max-height: $_error-line-height;
+      opacity: 1;
+    }
+  }
+}
