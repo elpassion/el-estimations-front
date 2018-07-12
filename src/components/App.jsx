@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 
-import { UserProvider } from '../contexts/UserContext';
+import { UserProvider, UserContext } from '../contexts/UserContext';
 
 import Spinner from './Spinner';
 import Navbar from './Navbar';
+import Login from './Login';
 
 export default class App extends React.Component {
   constructor() {
@@ -13,118 +14,121 @@ export default class App extends React.Component {
     this.client = axios.create({
       baseURL: 'https://floating-anchorage-81205.herokuapp.com/api/v1',
     });
-    this.requestApiToken = googleToken => this.client.post('/auth/google/', { access_token: googleToken });
   }
+
+  requestApiToken = googleToken => this.client.post('/auth/google/', { access_token: googleToken });
 
   render() {
     return (
-      <Fragment>
-        <UserProvider requestApiToken={ this.requestApiToken }>
+      <UserProvider requestApiToken={ this.requestApiToken }>
+        <UserContext.Consumer>
+          { ({ state: { loggedIn } }) => (!loggedIn ? <Login /> : (
+            <Fragment>
+              <header>
+                <Navbar />
+              </header>
 
-          <header>
-            <Navbar />
-          </header>
+              <main className="container container--full-height">
+                <section className="segment">
+                  <h1>
+                      Some title
+                  </h1>
 
-          <main className="container container--full-height">
+                  <p>
+                      Some intro text
+                  </p>
 
-            <section className="segment">
-              <h1>
-              Some title
-              </h1>
+                  <div>
+                    <a href="/" className="button button--spaced">
+                        button 1
+                    </a>
+                  </div>
+                </section>
 
-              <p>
-              Some intro text
-              </p>
+                <section className="segment">
+                  <form>
+                    <div className="field">
+                      <label className="field__label" htmlFor="name">
+                          Name:
+                      </label>
 
-              <div>
-                <a href="/" className="button button--spaced">
-                button 1
-                </a>
-              </div>
-            </section>
+                      <input className="field__input" type="text" id="name" name="name" />
 
-            <section className="segment">
-              <form>
-                <div className="field">
-                  <label className="field__label" htmlFor="name">
-                  Name:
-                  </label>
+                      <span className="field__annotation">
+annotation
+                      </span>
+                    </div>
 
-                  <input className="field__input" type="text" id="name" name="name" />
+                    <div className="field">
+                      <input type="checkbox" id="checkbox" name="checkbox" />
 
-                  <span className="field__annotation">
-                  annotation
-                  </span>
-                </div>
+                      <label className="field__checkbox-label" htmlFor="checkbox">
+                          Checkbox!
+                      </label>
+                    </div>
+                  </form>
+                </section>
 
-                <div className="field">
-                  <input type="checkbox" id="checkbox" name="checkbox" />
+                <section className="segment">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
+                            A table!
+                        </th>
 
-                  <label className="field__checkbox-label" htmlFor="checkbox">
-                  Checkbox!
-                  </label>
-                </div>
-              </form>
-            </section>
+                        <th>
+                            column 1
+                        </th>
 
-            <section className="segment">
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                    A table!
-                    </th>
+                        <th>
+                            column 2
+                        </th>
+                      </tr>
+                    </thead>
 
-                    <th>
-                    column 1
-                    </th>
+                    <tbody>
+                      <tr>
+                        <td>
+                            row 1
+                        </td>
 
-                    <th>
-                    column 2
-                    </th>
-                  </tr>
-                </thead>
+                        <td>
+                            val 1.1
+                        </td>
 
-                <tbody>
-                  <tr>
-                    <td>
-                    row 1
-                    </td>
+                        <td>
+                            val 1.2
+                        </td>
+                      </tr>
 
-                    <td>
-                    val 1.1
-                    </td>
+                      <tr>
+                        <td>
+                            row 2
+                        </td>
 
-                    <td>
-                    val 1.2
-                    </td>
-                  </tr>
+                        <td>
+                            val 2.1
+                        </td>
 
-                  <tr>
-                    <td>
-                    row 2
-                    </td>
+                        <td>
+                            val 2.2
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <td>
-                    val 2.1
-                    </td>
+                  <a href="/" className="button button--secondary button--spaced">
+                      button 2
+                  </a>
+                </section>
+              </main>
+            </Fragment>
 
-                    <td>
-                    val 2.2
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <a href="/" className="button button--secondary button--spaced">
-              button 2
-              </a>
-            </section>
-          </main>
-
-          <Spinner active={ false } />
-        </UserProvider>
-      </Fragment>
+          )) }
+        </UserContext.Consumer>
+        <Spinner active={ false } />
+      </UserProvider>
     );
   }
 }

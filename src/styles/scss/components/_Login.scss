@@ -1,0 +1,19 @@
+.Login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+
+  & > * {
+    margin-bottom: get($spacing, 'large');
+  }
+
+  &__logo {
+    max-height: 3em;
+  }
+
+  &__auth {
+    @extend .button;
+  }
+}

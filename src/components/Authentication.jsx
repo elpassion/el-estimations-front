@@ -10,9 +10,7 @@ const GOOGLE_DOMAIN = process.env.REACT_APP_GOOGLE_AUTH_DOMAIN;
 function Authentication({ className }) {
   return (
     <UserContext.Consumer>
-      { ({ state, logOut, logIn }) => {
-        const { loggedIn } = state;
-
+      { ({ state: { loggedIn }, logOut, logIn }) => {
         const onSuccess = (response) => {
           logIn(response.accessToken);
         };
