@@ -1,78 +1,178 @@
 import React, { Fragment } from 'react';
+import axios from 'axios';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+
+import { UserContext, UserProvider } from '../contexts/UserContext';
 import Spinner from './Spinner';
 
-export default function App() {
-  return (
-    <Fragment>
-      <header>
-        <div className="container">navigation</div>
-      </header>
+export default class App extends React.Component {
+  constructor() {
+    super();
 
-      <main className="container container--full-height">
-        <section className="segment">
-          <h1>Some title</h1>
+    this.client = axios.create({
+      baseURL: 'https://floating-anchorage-81205.herokuapp.com/api/v1',
+    });
 
-          <p>Some intro text</p>
+    this.requestApiToken = googleToken => this.client.post('/auth/google/', { access_token: googleToken });
+  }
 
-          <div>
-            <a href="/" className="button button--spaced">button 1</a>
+  render() {
+    return (
+      <Fragment>
+        <UserProvider requestApiToken={ this.requestApiToken }>
+          <UserContext.Consumer>
+            { ({ state, logOut, logIn }) => {
+              const { loggedIn, key } = state;
+
+              const onSuccess = (response) => {
+                logIn(response.accessToken);
+              };
+
+              const onError = (res) => {
+                // eslint-disable-next-line no-console
+                console.log('e', 'Something went wrong!', res);
+              };
+
+              return (
+                <Fragment>
+                  <p>
+                    loggedIn:
+                    { loggedIn ? 'yes' : 'no' }
+                  </p>
+                  { loggedIn && (
+                    <p>
+                      key:
+                      { key }
+                    </p>
+                  ) }
+
+                  { !loggedIn && (
+                    <GoogleLogin
+                      clientId="120875519990-n15kj23ggiumtm8fq3eofgbkep6cc0bk.apps.googleusercontent.com"
+                      hostedDomain="elpassion.pl"
+                      buttonText="Login"
+                      onSuccess={ onSuccess }
+                      onFailure={ onError }
+                    />
+                  ) }
+
+                  { loggedIn && (
+                    <GoogleLogout
+                      buttonText="Logout"
+                      onLogoutSuccess={ logOut }
+                    />
+                  ) }
+                </Fragment>
+              );
+            } }
+          </UserContext.Consumer>
+        </UserProvider>
+
+        <header>
+          <div className="container">
+            navigation
           </div>
-        </section>
+        </header>
 
-        <section className="segment">
-          <form>
-            <div className="field">
-              <label className="field__label" htmlFor="name">Name:</label>
+        <main className="container container--full-height">
 
-              <input className="field__input" type="text" id="name" name="name" />
+          <section className="segment">
+            <h1>
+              Some title
+            </h1>
 
-              <span className="field__annotation">annotation</span>
+            <p>
+              Some intro text
+            </p>
+
+            <div>
+              <a href="/" className="button button--spaced">
+                button 1
+              </a>
             </div>
+          </section>
 
-            <div className="field">
-              <input type="checkbox" id="checkbox" name="checkbox" />
+          <section className="segment">
+            <form>
+              <div className="field">
+                <label className="field__label" htmlFor="name">
+                  Name:
+                </label>
 
-              <label className="field__checkbox-label" htmlFor="checkbox">Checkbox!</label>
-            </div>
-          </form>
-        </section>
+                <input className="field__input" type="text" id="name" name="name" />
 
-        <section className="segment">
-          <table>
-            <thead>
-              <tr>
-                <th>A table!</th>
+                <span className="field__annotation">
+                  annotation
+                </span>
+              </div>
 
-                <th>column 1</th>
+              <div className="field">
+                <input type="checkbox" id="checkbox" name="checkbox" />
 
-                <th>column 2</th>
-              </tr>
-            </thead>
+                <label className="field__checkbox-label" htmlFor="checkbox">
+                  Checkbox!
+                </label>
+              </div>
+            </form>
+          </section>
 
-            <tbody>
-              <tr>
-                <td>row 1</td>
+          <section className="segment">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    A table!
+                  </th>
 
-                <td>val 1.1</td>
+                  <th>
+                    column 1
+                  </th>
 
-                <td>val 1.2</td>
-              </tr>
+                  <th>
+                    column 2
+                  </th>
+                </tr>
+              </thead>
 
-              <tr>
-                <td>row 2</td>
+              <tbody>
+                <tr>
+                  <td>
+                    row 1
+                  </td>
 
-                <td>val 2.1</td>
+                  <td>
+                    val 1.1
+                  </td>
 
-                <td>val 2.2</td>
-              </tr>
-            </tbody>
-          </table>
+                  <td>
+                    val 1.2
+                  </td>
+                </tr>
 
-          <a href="/" className="button button--secondary button--spaced">button 2</a>
-        </section>
-      </main>
+                <tr>
+                  <td>
+                    row 2
+                  </td>
 
-      <Spinner active={ false } />
-    </Fragment>
-  );
+                  <td>
+                    val 2.1
+                  </td>
+
+                  <td>
+                    val 2.2
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <a href="/" className="button button--secondary button--spaced">
+              button 2
+            </a>
+          </section>
+        </main>
+
+        <Spinner active={ false } />
+      </Fragment>
+    );
+  }
 }
