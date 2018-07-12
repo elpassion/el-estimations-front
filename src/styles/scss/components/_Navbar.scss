@@ -1,0 +1,44 @@
+.Navbar {
+  $_separation: 2 * get($spacing);
+
+  position: relative;
+  height: $navbar-height;
+  padding: get($spacing, 'small') 0;
+  background-color: $c-navbar;
+  box-shadow: $shadow-default;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__logo {
+    display: none;
+    flex: 0 0 auto;
+    max-height: 100%;
+    margin-right: $_separation;
+  }
+
+  &__menu {
+    @include inline-list;
+
+    flex-grow: 1;
+    margin-right: $_separation;
+  }
+
+  &__auth {
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  @media #{get($screen-media, 'md')} {
+    &__menu {
+      justify-content: flex-end;
+    }
+
+    &__logo {
+      display: block;
+    }
+  }
+}

@@ -1,7 +1,13 @@
-$container-width: 1024px;
-$top-bar-height: 56px;
-$side-bar-width: 300px;
-$level-side-bar-width: $side-bar-width;
+$container-width: 1200px;
+$navbar-height: 56px;
+
+$screen-sizes: (
+  md: 30em
+);
+
+$screen-media: (
+  md: screen and (min-width: get($screen-sizes, 'md')),
+);
 
 $spacing: (
   tiny: 6px,

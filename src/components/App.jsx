@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
-import { UserContext, UserProvider } from '../contexts/UserContext';
+import { UserProvider } from '../contexts/UserContext';
+
 import Spinner from './Spinner';
+import Navbar from './Navbar';
 
 export default class App extends React.Component {
   constructor() {
@@ -12,7 +13,6 @@ export default class App extends React.Component {
     this.client = axios.create({
       baseURL: 'https://floating-anchorage-81205.herokuapp.com/api/v1',
     });
-
     this.requestApiToken = googleToken => this.client.post('/auth/google/', { access_token: googleToken });
   }
 
@@ -20,158 +20,110 @@ export default class App extends React.Component {
     return (
       <Fragment>
         <UserProvider requestApiToken={ this.requestApiToken }>
-          <UserContext.Consumer>
-            { ({ state, logOut, logIn }) => {
-              const { loggedIn, key } = state;
 
-              const onSuccess = (response) => {
-                logIn(response.accessToken);
-              };
+          <header>
+            <Navbar />
+          </header>
 
-              const onError = (res) => {
-                // eslint-disable-next-line no-console
-                console.log('e', 'Something went wrong!', res);
-              };
+          <main className="container container--full-height">
 
-              return (
-                <Fragment>
-                  <p>
-                    loggedIn:
-                    { loggedIn ? 'yes' : 'no' }
-                  </p>
-                  { loggedIn && (
-                    <p>
-                      key:
-                      { key }
-                    </p>
-                  ) }
-
-                  { !loggedIn && (
-                    <GoogleLogin
-                      clientId="120875519990-n15kj23ggiumtm8fq3eofgbkep6cc0bk.apps.googleusercontent.com"
-                      hostedDomain="elpassion.pl"
-                      buttonText="Login"
-                      onSuccess={ onSuccess }
-                      onFailure={ onError }
-                    />
-                  ) }
-
-                  { loggedIn && (
-                    <GoogleLogout
-                      buttonText="Logout"
-                      onLogoutSuccess={ logOut }
-                    />
-                  ) }
-                </Fragment>
-              );
-            } }
-          </UserContext.Consumer>
-        </UserProvider>
-
-        <header>
-          <div className="container">
-            navigation
-          </div>
-        </header>
-
-        <main className="container container--full-height">
-
-          <section className="segment">
-            <h1>
+            <section className="segment">
+              <h1>
               Some title
-            </h1>
+              </h1>
 
-            <p>
+              <p>
               Some intro text
-            </p>
+              </p>
 
-            <div>
-              <a href="/" className="button button--spaced">
+              <div>
+                <a href="/" className="button button--spaced">
                 button 1
-              </a>
-            </div>
-          </section>
+                </a>
+              </div>
+            </section>
 
-          <section className="segment">
-            <form>
-              <div className="field">
-                <label className="field__label" htmlFor="name">
+            <section className="segment">
+              <form>
+                <div className="field">
+                  <label className="field__label" htmlFor="name">
                   Name:
-                </label>
+                  </label>
 
-                <input className="field__input" type="text" id="name" name="name" />
+                  <input className="field__input" type="text" id="name" name="name" />
 
-                <span className="field__annotation">
+                  <span className="field__annotation">
                   annotation
-                </span>
-              </div>
+                  </span>
+                </div>
 
-              <div className="field">
-                <input type="checkbox" id="checkbox" name="checkbox" />
+                <div className="field">
+                  <input type="checkbox" id="checkbox" name="checkbox" />
 
-                <label className="field__checkbox-label" htmlFor="checkbox">
+                  <label className="field__checkbox-label" htmlFor="checkbox">
                   Checkbox!
-                </label>
-              </div>
-            </form>
-          </section>
+                  </label>
+                </div>
+              </form>
+            </section>
 
-          <section className="segment">
-            <table>
-              <thead>
-                <tr>
-                  <th>
+            <section className="segment">
+              <table>
+                <thead>
+                  <tr>
+                    <th>
                     A table!
-                  </th>
+                    </th>
 
-                  <th>
+                    <th>
                     column 1
-                  </th>
+                    </th>
 
-                  <th>
+                    <th>
                     column 2
-                  </th>
-                </tr>
-              </thead>
+                    </th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr>
-                  <td>
+                <tbody>
+                  <tr>
+                    <td>
                     row 1
-                  </td>
+                    </td>
 
-                  <td>
+                    <td>
                     val 1.1
-                  </td>
+                    </td>
 
-                  <td>
+                    <td>
                     val 1.2
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
 
-                <tr>
-                  <td>
+                  <tr>
+                    <td>
                     row 2
-                  </td>
+                    </td>
 
-                  <td>
+                    <td>
                     val 2.1
-                  </td>
+                    </td>
 
-                  <td>
+                    <td>
                     val 2.2
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-            <a href="/" className="button button--secondary button--spaced">
+              <a href="/" className="button button--secondary button--spaced">
               button 2
-            </a>
-          </section>
-        </main>
+              </a>
+            </section>
+          </main>
 
-        <Spinner active={ false } />
+          <Spinner active={ false } />
+        </UserProvider>
       </Fragment>
     );
   }

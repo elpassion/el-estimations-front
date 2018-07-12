@@ -17,3 +17,13 @@
     margin-right: 0;
   }
 }
+
+@mixin inline-list($gutter: get($spacing)) {
+  display: flex;
+
+  & > * {
+    @extend %margin-clean-horizontal;
+
+    margin-left: $gutter;
+  }
+}
