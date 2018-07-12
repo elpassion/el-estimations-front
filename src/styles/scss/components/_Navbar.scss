@@ -32,6 +32,26 @@
     cursor: pointer;
   }
 
+  &__link {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      bottom: -.5em;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: currentColor;
+      content: '';
+      transform: scale(0);
+      transition: transform $duration-default;
+    }
+
+    &--active::after {
+      transform: scale(1);
+    }
+  }
+
   @media #{get($screen-media, 'md')} {
     &__menu {
       justify-content: flex-end;

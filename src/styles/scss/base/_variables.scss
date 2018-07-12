@@ -34,7 +34,7 @@ $radii: (
   default: 4px,
 );
 
-$shadow-default: 0 0 0 1px rgba($c-shadow-base, .05), 0 1px 3px 0 rgba($c-shadow-base, .15);
+$shadow-default: 0 0 5px 1px rgba($c-shadow-base, .05), 0 0 8px 1px rgba($c-shadow-base, .1);
 
 $duration-default: .25s;
 
