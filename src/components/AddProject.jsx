@@ -51,6 +51,7 @@ export default class AddProject extends React.Component {
               <WrappedField name="description" type="textarea" props={ formikProps } />
 
               <SelectField
+                label="Teams:"
                 name="teams"
                 multi
                 { ...fieldState('teams', formikProps) }
@@ -58,7 +59,8 @@ export default class AddProject extends React.Component {
                 onBlur={ formikProps.setFieldTouched }
                 options={ this.state.teams }
               />
-              <button type="submit">Submit</button>
+
+              <button type="submit" className="button button--wide button--spaced">Submit</button>
             </form>
           ) }
         />
