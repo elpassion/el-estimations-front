@@ -2,11 +2,15 @@ $container-width: 1200px;
 $navbar-height: 56px;
 
 $screen-sizes: (
-  sm: 30em
+  sm: 30em,
+  md: 50em,
+  lg: $container-width,
 );
 
 $screen-media: (
   sm: screen and (min-width: get($screen-sizes, 'sm')),
+  md: screen and (min-width: get($screen-sizes, 'md')),
+  lg: screen and (min-width: get($screen-sizes, 'lg')),
 );
 
 $spacing: (

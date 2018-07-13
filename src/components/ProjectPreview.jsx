@@ -8,15 +8,26 @@ import namesString from '../helpers/namesString';
 function ProjectPreview({ project }) {
   return (
     <article className={ classNames(['ProjectPreview', { 'ProjectPreview--inactive': project.status === 'Done' }]) }>
-      <h1 className="ProjectPreview__title">{ project.name }</h1>
+      <header className="ProjectPreview__header">
+        <h1 className="ProjectPreview__title">{ project.name }</h1>
 
-      <h2 className="ProjectPreview__subtitle">{ project.client_name }</h2>
+        <h2 className="ProjectPreview__subtitle">{ namesString(project.teams) }</h2>
+      </header>
 
-      <p className="ProjectPreview__detail">Teams: { namesString(project.teams) }</p>
+      <p className="ProjectPreview__detail">
+        <strong>Client: </strong>
+        { project.client_name }
+      </p>
 
-      <p className="ProjectPreview__detail">Description: { project.description }</p>
+      <p className="ProjectPreview__detail">
+        <strong>Description: </strong>
+        { project.description }
+      </p>
 
-      <p className="ProjectPreview__detail">Created: { moment(project.when).format('Do MMMM YYYY, kk:mm') }</p>
+      <p className="ProjectPreview__detail">
+        <strong>Created: </strong>
+        { moment(project.when).format('Do MMMM YYYY, kk:mm') }
+      </p>
 
       {/* eslint-disable-next-line */}
       <a className="ProjectPreview__link" href="#">see details &rsaquo;</a>

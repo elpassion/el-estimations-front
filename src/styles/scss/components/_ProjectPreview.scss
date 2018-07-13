@@ -1,5 +1,5 @@
 .ProjectPreview {
-  $_padding: get($spacing);
+  $_padding: get($spacing, 'medium');
 
   position: relative;
   margin-top: get($spacing, 'medium');
@@ -9,6 +9,31 @@
   box-shadow: get($shadows, 'light');
   transition: box-shadow $duration-default, opacity $duration-default;
 
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: get($spacing, 'medium');
+  }
+
+  &__title {
+    margin-bottom: get($spacing, 'small');
+    font-size: get($font-sizes, 'large');
+  }
+
+  &__subtitle {
+    font-size: get($font-sizes);
+  }
+
+  &__detail {
+    margin-top: get($spacing, 'small');
+  }
+
+  &__link {
+    display: block;
+    margin-top: get($spacing, 'medium');
+  }
+
   &:hover {
     opacity: 1;
     box-shadow: get($shadows, 'dark');
@@ -16,5 +41,20 @@
 
   &--inactive {
     opacity: .65;
+  }
+
+  @media #{get($screen-media, 'md')} {
+    &__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: get($spacing, 'medium');
+    }
+
+    &__title,
+    &__subtitle {
+      margin-bottom: 0;
+    }
   }
 }
