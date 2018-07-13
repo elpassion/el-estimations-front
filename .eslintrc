@@ -30,6 +30,8 @@
     }],
     "max-len": ["warn", { "code": 120 }],
     "object-curly-newline": ["error", { "consistent": true }],
+    "react/destructuring-assignment": "off",
+    "react/no-array-index-key": "off",
     "react/jsx-curly-spacing": [2, {
       "when": "always",
       "spacing": {
@@ -39,6 +41,7 @@
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx"]
     }],
-    "react/jsx-indent": [ "error", 2 ]
+    "react/jsx-indent": [ "error", 2 ],
+    "react/jsx-one-expression-per-line": "off"
   }
 }

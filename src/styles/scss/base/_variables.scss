@@ -2,11 +2,11 @@ $container-width: 1200px;
 $navbar-height: 56px;
 
 $screen-sizes: (
-  md: 30em
+  sm: 30em
 );
 
 $screen-media: (
-  md: screen and (min-width: get($screen-sizes, 'md')),
+  sm: screen and (min-width: get($screen-sizes, 'sm')),
 );
 
 $spacing: (
@@ -34,7 +34,11 @@ $radii: (
   default: 4px,
 );
 
-$shadow-default: 0 0 5px 1px rgba($c-shadow-base, .05), 0 0 8px 1px rgba($c-shadow-base, .1);
+$shadows: (
+  light: #{0 0 2px 1px rgba($c-shadow-base, .05), 0 0 4px 1px rgba($c-shadow-base, .05)},
+  default: #{0 0 5px 1px rgba($c-shadow-base, .05), 0 0 8px 1px rgba($c-shadow-base, .1)},
+  dark: #{0 0 7px 1px rgba($c-shadow-base, .07), 0 0 10px 1px rgba($c-shadow-base, .15)},
+);
 
 $duration-default: .25s;
 

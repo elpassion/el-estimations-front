@@ -1,0 +1,20 @@
+.ProjectPreview {
+  $_padding: get($spacing);
+
+  position: relative;
+  margin-top: get($spacing, 'medium');
+  padding: $_padding;
+  background-color: $c-card;
+  border-radius: get($radii);
+  box-shadow: get($shadows, 'light');
+  transition: box-shadow $duration-default, opacity $duration-default;
+
+  &:hover {
+    opacity: 1;
+    box-shadow: get($shadows, 'dark');
+  }
+
+  &--inactive {
+    opacity: .65;
+  }
+}

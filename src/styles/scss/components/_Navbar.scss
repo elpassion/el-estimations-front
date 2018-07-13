@@ -5,7 +5,7 @@
   height: $navbar-height;
   padding: get($spacing, 'small') 0;
   background-color: $c-navbar;
-  box-shadow: $shadow-default;
+  box-shadow: get($shadows);
 
   &__container {
     display: flex;
@@ -52,7 +52,7 @@
     }
   }
 
-  @media #{get($screen-media, 'md')} {
+  @media #{get($screen-media, 'sm')} {
     &__menu {
       justify-content: flex-end;
     }

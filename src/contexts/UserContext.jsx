@@ -10,6 +10,7 @@ export class UserProvider extends React.Component {
   static propTypes = {
     requestApiToken: func.isRequired,
     children: oneOfType([array, node]),
+    client: func.isRequired,
   };
 
   static defaultProps = {
@@ -32,11 +33,13 @@ export class UserProvider extends React.Component {
   setLoggedIn = (key) => {
     this.setState({ loggedIn: true, key });
     window.localStorage.setItem(API_KEY_LABEL, key);
+    this.props.client.defaults.headers.common.Authorization = `Token ${key}`;
   };
 
   removeLoggedIn = () => {
     this.setState({ loggedIn: false, key: '' });
     window.localStorage.removeItem(API_KEY_LABEL);
+    this.props.client.defaults.headers.common.Authorization = '';
   };
 
   logIn = (accessToken) => {

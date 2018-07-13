@@ -7,8 +7,8 @@ import { UserProvider, UserContext } from '../contexts/UserContext';
 import Spinner from './Spinner';
 import Navbar from './Navbar';
 import Login from './Login';
+import Projects from './Projects';
 import TestPage from './TestPage';
-import TestPage2 from './TestPage2';
 
 export default class App extends React.Component {
   constructor() {
@@ -23,7 +23,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <UserProvider requestApiToken={ this.requestApiToken }>
+      <UserProvider requestApiToken={ this.requestApiToken } client={ this.client }>
         <UserContext.Consumer>
           { ({ state: { loggedIn } }) => (!loggedIn ? <Login /> : (
             <Router>
@@ -34,8 +34,8 @@ export default class App extends React.Component {
 
                 <main className="container container--full-height">
                   <Switch>
-                    <Route path="/other" component={ TestPage2 } />
-                    <Route path="/" component={ TestPage } />
+                    <Route path="/other" component={ TestPage } />
+                    <Route path="/" component={ () => <Projects client={ this.client } /> } />
                   </Switch>
                 </main>
               </Fragment>

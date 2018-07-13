@@ -13,8 +13,9 @@ function Navbar() {
 
         <nav className="Navbar__menu">
           <NavLink to="/" className="Navbar__link" exact activeClassName="Navbar__link--active">
-Test Page
+Projects
           </NavLink>
+
           <NavLink to="/other" className="Navbar__link" activeClassName="Navbar__link--active">
 Other Page
           </NavLink>
