@@ -39,11 +39,10 @@ export default class AddProject extends React.Component {
 
         <Formik
           validationSchema={ schema }
-          onSubmit={ (values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
+          onSubmit={ (values) => {
+            const body = values;
+            body.teams = body.teams.map(team => team.value);
+            this.props.client.post('/projects/', body).then(() => window.location = '/');
           } }
           render={ formikProps => (
             <form onSubmit={ formikProps.handleSubmit }>
