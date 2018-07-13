@@ -19,6 +19,10 @@ Projects
           <NavLink to="/other" className="Navbar__link" activeClassName="Navbar__link--active">
 Other Page
           </NavLink>
+
+          <NavLink to="/add-project" className="Navbar__link" activeClassName="Navbar__link--active">
++ Project
+          </NavLink>
         </nav>
 
         <Authentication className="Navbar__auth" />
