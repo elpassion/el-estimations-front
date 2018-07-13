@@ -32,45 +32,45 @@ export class AddProject extends React.Component {
   render() {
     return (
       <Formik
-        validationSchema={schema}
-        onSubmit={(values, actions) => {
+        validationSchema={ schema }
+        onSubmit={ (values, actions) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             actions.setSubmitting(false);
           }, 1000);
-        }}
-        render={formikProps => (
-          <form onSubmit={formikProps.handleSubmit}>
+        } }
+        render={ formikProps => (
+          <form onSubmit={ formikProps.handleSubmit }>
             <input
               type="text"
-              onChange={formikProps.handleChange}
-              onBlur={formikProps.handleBlur}
-              values={formikProps.values.name}
+              onChange={ formikProps.handleChange }
+              onBlur={ formikProps.handleBlur }
+              values={ formikProps.values.name }
               name="client_name"
             />
             <input
               type="text"
-              onChange={formikProps.handleChange}
-              onBlur={formikProps.handleBlur}
-              values={formikProps.values.name}
+              onChange={ formikProps.handleChange }
+              onBlur={ formikProps.handleBlur }
+              values={ formikProps.values.name }
               name="name"
             />
             <textarea
-              onChange={formikProps.handleChange}
-              onBlur={formikProps.handleBlur}
-              values={formikProps.values.name}
+              onChange={ formikProps.handleChange }
+              onBlur={ formikProps.handleBlur }
+              values={ formikProps.values.name }
               name="description"
             />
             <SelectField
-              clearable = { false }
-              name = "teams"
-              onChange = { formikProps.setFieldValue }
-              onBlur = { formikProps.setFieldTouched }
-              options = { this.state.teams }
+              clearable={ false }
+              name="teams"
+              onChange={ formikProps.setFieldValue }
+              onBlur={ formikProps.setFieldTouched }
+              options={ this.state.teams }
             />
             <button type="submit">Submit</button>
           </form>
-        )}
+        ) }
       />
     );
   }
