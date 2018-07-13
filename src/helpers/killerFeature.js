@@ -2,19 +2,19 @@ import anime from 'animejs';
 import parentWithClass from './parentWithClass';
 
 export default function killerFeature(selectorClass = 'js_killerFeature') {
-  var canvasEl = document.querySelector('.js_animeCanvas');
-  var ctx = canvasEl.getContext('2d');
-  var numberOfParticules = 30;
-  var pointerX = 0;
-  var pointerY = 0;
-  var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown';
-  var colors = ['#28c23e', '#FFB283', '#99eaa5', '#44d95a'];
+  const canvasEl = document.querySelector('.js_animeCanvas');
+  const ctx = canvasEl.getContext('2d');
+  const numberOfParticules = 30;
+  let pointerX = 0;
+  let pointerY = 0;
+  const tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown';
+  const colors = ['#28c23e', '#FFB283', '#99eaa5', '#44d95a'];
 
   function setCanvasSize() {
     canvasEl.width = window.innerWidth * 2;
     canvasEl.height = window.innerHeight * 2;
-    canvasEl.style.width = window.innerWidth + 'px';
-    canvasEl.style.height = window.innerHeight + 'px';
+    canvasEl.style.width = `${window.innerWidth}px`;
+    canvasEl.style.height = `${window.innerHeight}px`;
     canvasEl.getContext('2d').scale(2, 2);
   }
 
@@ -24,40 +24,40 @@ export default function killerFeature(selectorClass = 'js_killerFeature') {
   }
 
   function setParticuleDirection(p) {
-    var angle = anime.random(0, 360) * Math.PI / 180;
-    var value = anime.random(90, 270);
-    var radius = [-1, 1][anime.random(0, 1)] * value;
+    const angle = anime.random(0, 360) * Math.PI / 180;
+    const value = anime.random(90, 270);
+    const radius = [-1, 1][anime.random(0, 1)] * value;
     return {
       x: p.x + radius * Math.cos(angle),
-      y: p.y + radius * Math.sin(angle)
-    }
+      y: p.y + radius * Math.sin(angle),
+    };
   }
 
-  function createParticule(x,y) {
-    var p = {};
+  function createParticule(x, y) {
+    const p = {};
     p.x = x;
     p.y = y;
     p.color = colors[anime.random(0, colors.length - 1)];
     p.radius = anime.random(16, 36);
     p.endPos = setParticuleDirection(p);
-    p.draw = function() {
+    p.draw = function () {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
       ctx.fillStyle = p.color;
       ctx.fill();
-    }
+    };
     return p;
   }
 
-  function createCircle(x,y) {
-    var p = {};
+  function createCircle(x, y) {
+    const p = {};
     p.x = x;
     p.y = y;
     p.color = '#FFF';
     p.radius = 0.1;
-    p.alpha = .5;
+    p.alpha = 0.5;
     p.lineWidth = 6;
-    p.draw = function() {
+    p.draw = function () {
       ctx.globalAlpha = p.alpha;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
@@ -65,30 +65,30 @@ export default function killerFeature(selectorClass = 'js_killerFeature') {
       ctx.strokeStyle = p.color;
       ctx.stroke();
       ctx.globalAlpha = 1;
-    }
+    };
     return p;
   }
 
   function renderParticule(anim) {
-    for (var i = 0; i < anim.animatables.length; i++) {
+    for (let i = 0; i < anim.animatables.length; i++) {
       anim.animatables[i].target.draw();
     }
   }
 
   function animateParticules(x, y) {
-    var circle = createCircle(x, y);
-    var particules = [];
-    for (var i = 0; i < numberOfParticules; i++) {
+    const circle = createCircle(x, y);
+    const particules = [];
+    for (let i = 0; i < numberOfParticules; i++) {
       particules.push(createParticule(x, y));
     }
     anime.timeline().add({
       targets: particules,
-      x: function(p) { return p.endPos.x; },
-      y: function(p) { return p.endPos.y; },
+      x(p) { return p.endPos.x; },
+      y(p) { return p.endPos.y; },
       radius: 0.1,
       duration: anime.random(1200, 1800),
       easing: 'easeOutExpo',
-      update: renderParticule
+      update: renderParticule,
     })
       .add({
         targets: circle,
@@ -102,19 +102,19 @@ export default function killerFeature(selectorClass = 'js_killerFeature') {
         duration: anime.random(1200, 1800),
         easing: 'easeOutExpo',
         update: renderParticule,
-        offset: 0
+        offset: 0,
       });
   }
 
-  var render = anime({
+  const render = anime({
     duration: Infinity,
-    update: function() {
+    update() {
       ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-    }
+    },
   });
 
-  document.addEventListener(tap, function(e) {
-    if(parentWithClass(e.target, selectorClass)) {
+  document.addEventListener(tap, (e) => {
+    if (parentWithClass(e.target, selectorClass)) {
       render.play();
       updateCoords(e);
       animateParticules(pointerX, pointerY);

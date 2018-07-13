@@ -39,6 +39,14 @@
     margin-left: get($spacing);
   }
 
+  &__team{
+    display: inline-block;
+    margin-right: get($spacing, 'small');
+    &--fulfilled {
+      text-decoration: line-through;
+    }
+  }
+
   &:hover {
     opacity: 1;
     box-shadow: get($shadows, 'dark');

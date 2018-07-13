@@ -27,15 +27,14 @@ export default class Projects extends React.Component {
   }
 
   onAssignButtonClick = ({ projectId, teamId }) => {
-    const {client, me} = this.props;
+    const { client, me } = this.props;
     client.post('/assignees/', {
       assignee: me.id,
       project: projectId,
-      team: teamId
+      team: teamId,
     }).then(() => {
-      this.getData()
+      this.getData();
     });
-
   };
 
   async getData() {

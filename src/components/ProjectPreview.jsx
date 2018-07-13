@@ -3,17 +3,26 @@ import { shape, string, arrayOf, number, func } from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 
-import namesString from '../helpers/namesString';
-
 function ProjectPreview({ project, myTeams, onAssignButtonClick }) {
-  const myUsefulTeams = myTeams.filter(team => project.teams.find(projectTeam => projectTeam.id === team.id));
+  const fulfilledTeamIds = project.assignees.map(assignee => assignee.team.id);
+
+  const myUsefulTeams = myTeams.filter(team => project.teams.find(projectTeam => projectTeam.id === team.id && !fulfilledTeamIds.includes(projectTeam.id)));
 
   return (
     <article className={ classNames(['ProjectPreview', { 'ProjectPreview--inactive': project.status === 'Done' }]) }>
       <header className="ProjectPreview__header">
         <h1 className="ProjectPreview__title">{ project.name }</h1>
 
-        <h2 className="ProjectPreview__subtitle">{ namesString(project.teams) }</h2>
+        <h2 className="ProjectPreview__subtitle">
+          { project.teams.map((team, index) => (
+            <span
+              key={ index }
+              className={ classNames(['ProjectPreview__team', { 'ProjectPreview__team--fulfilled': fulfilledTeamIds.includes(team.id) }]) }
+            >
+              { team.name }
+            </span>
+          )) }
+        </h2>
       </header>
 
       <p className="ProjectPreview__detail">
@@ -31,7 +40,20 @@ function ProjectPreview({ project, myTeams, onAssignButtonClick }) {
         { moment(project.when).format('Do MMMM YYYY, kk:mm') }
       </p>
 
-      { (project.status !== 'Done' && myUsefulTeams.length > 0) && (
+      { project.assignees.length > 0 && (
+        <div className="ProjectPreview__detail">
+          <strong>Assignees: </strong>
+          <ul>
+            { project.assignees.map((item, index) => (
+              <li key={ index }>
+                { item.assignee.first_name } { item.assignee.last_name } as { item.team.name }
+              </li>
+            )) }
+          </ul>
+        </div>
+      ) }
+
+      { ( project.status !== 'Done' && myUsefulTeams.length > 0 ) && (
         <div className="ProjectPreview__actions">
           <strong>Join as: </strong>
           { myUsefulTeams.map((team, index) => (
@@ -61,6 +83,7 @@ ProjectPreview.propTypes = {
       id: number.isRequired,
       name: string.isRequired,
     })),
+    assignees: arrayOf(shape({})).isRequired,
   }).isRequired,
   myTeams: arrayOf(shape({
     id: number.isRequired,
