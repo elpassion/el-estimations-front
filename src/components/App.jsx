@@ -9,7 +9,7 @@ import Navbar from './Navbar';
 import Login from './Login';
 import Projects from './Projects';
 import TestPage from './TestPage';
-import { AddProject } from './AddProject';
+import AddProject from './AddProject';
 
 export default class App extends React.Component {
   constructor() {
@@ -37,7 +37,8 @@ export default class App extends React.Component {
                   <Switch>
                     <Route exact path="/add-project" component={ () => <AddProject client={ this.client } /> } />
                     <Route path="/other" component={ TestPage } />
-                    <Route path="/" component={ () => <Projects client={ this.client } /> } />                  </Switch>
+                    <Route path="/" component={ () => <Projects client={ this.client } /> } />
+                  </Switch>
                 </main>
               </Fragment>
             </Router>

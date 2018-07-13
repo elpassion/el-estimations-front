@@ -11,7 +11,7 @@ const schema = Yup.object().shape({
   teams: Yup.array().required()
 });
 
-export class AddProject extends React.Component {
+export default class AddProject extends React.Component {
   static propTypes = {
     client: func.isRequired,
   };
