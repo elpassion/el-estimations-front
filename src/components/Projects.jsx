@@ -1,11 +1,20 @@
 import React, { Fragment } from 'react';
-import { func } from 'prop-types';
+import { func, shape, number, arrayOf } from 'prop-types';
 
 import ProjectPreview from './ProjectPreview';
 
 export default class Projects extends React.Component {
   static propTypes = {
     client: func.isRequired,
+    me: shape({
+      teams: arrayOf(shape({ id: number.isRequired })),
+    }),
+  };
+
+  static defaultProps = {
+    me: {
+      teams: [],
+    },
   };
 
   state = {
@@ -15,6 +24,11 @@ export default class Projects extends React.Component {
   componentDidMount() {
     this.getData();
   }
+
+  onAssignButtonClick = ({ projectId, teamId }) => {
+    // eslint-disable-next-line
+    console.log(`assign me to project ${projectId} as ${teamId}`);
+  };
 
   async getData() {
     const res = await this.props.client.get('/projects/');
@@ -31,7 +45,11 @@ export default class Projects extends React.Component {
           <ul>
             { projects.map((project, index) => (
               <li key={ index }>
-                <ProjectPreview project={ project } />
+                <ProjectPreview
+                  project={ project }
+                  myTeams={ this.props.me.teams }
+                  onAssignButtonClick={ this.onAssignButtonClick }
+                />
               </li>
             )) }
           </ul>
@@ -43,9 +61,9 @@ export default class Projects extends React.Component {
   render() {
     return (
       <Fragment>
-        {this.renderList('Pending')}
+        { this.renderList('Pending') }
 
-        {this.renderList('Done')}
+        { this.renderList('Done') }
       </Fragment>
     );
   }

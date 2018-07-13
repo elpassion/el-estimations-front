@@ -26,7 +26,7 @@ export default class App extends React.Component {
     return (
       <UserProvider requestApiToken={ this.requestApiToken } client={ this.client }>
         <UserContext.Consumer>
-          { ({ state: { loggedIn } }) => (!loggedIn ? <Login /> : (
+          { ({ state: { loggedIn, me } }) => (!loggedIn ? <Login /> : (
             <Router>
               <Fragment>
                 <header>
@@ -36,8 +36,8 @@ export default class App extends React.Component {
                 <main className="container container--full-height">
                   <Switch>
                     <Route exact path="/add-project" component={ () => <AddProject client={ this.client } /> } />
-                    <Route path="/other" component={ TestPage } />
-                    <Route path="/" component={ () => <Projects client={ this.client } /> } />
+                    <Route path="/test-page" component={ TestPage } />
+                    <Route path="/" component={ () => <Projects client={ this.client } me={ me } /> } />
                   </Switch>
                 </main>
               </Fragment>

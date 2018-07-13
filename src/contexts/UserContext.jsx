@@ -20,6 +20,7 @@ export class UserProvider extends React.Component {
   state = {
     loggedIn: false,
     key: '',
+    me: null,
   };
 
   componentDidMount() {
@@ -30,14 +31,16 @@ export class UserProvider extends React.Component {
     }
   }
 
-  setLoggedIn = (key) => {
-    this.setState({ loggedIn: true, key });
+  setLoggedIn = async (key) => {
+    const { client } = this.props;
     window.localStorage.setItem(API_KEY_LABEL, key);
-    this.props.client.defaults.headers.common.Authorization = `Token ${key}`;
+    client.defaults.headers.common.Authorization = `Token ${key}`;
+    const { data } = await client.get('/users/me/');
+    this.setState({ loggedIn: true, key, me: data });
   };
 
   removeLoggedIn = () => {
-    this.setState({ loggedIn: false, key: '' });
+    this.setState({ loggedIn: false, key: '', me: null });
     window.localStorage.removeItem(API_KEY_LABEL);
     this.props.client.defaults.headers.common.Authorization = '';
   };

@@ -42,7 +42,7 @@ export default class AddProject extends React.Component {
           onSubmit={ (values) => {
             const body = values;
             body.teams = body.teams.map(team => team.value);
-            this.props.client.post('/projects/', body).then(() => window.location = '/');
+            this.props.client.post('/projects/', body).then(() => { window.location = '/'; });
           } }
           render={ formikProps => (
             <form onSubmit={ formikProps.handleSubmit }>

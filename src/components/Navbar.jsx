@@ -12,17 +12,9 @@ function Navbar() {
         <img className="Navbar__logo" src={ Logo } alt="logo" />
 
         <nav className="Navbar__menu">
-          <NavLink to="/" className="Navbar__link" exact activeClassName="Navbar__link--active">
-Projects
-          </NavLink>
+          <NavLink to="/" className="Navbar__link" exact activeClassName="Navbar__link--active">Projects</NavLink>
 
-          <NavLink to="/other" className="Navbar__link" activeClassName="Navbar__link--active">
-Other Page
-          </NavLink>
-
-          <NavLink to="/add-project" className="Navbar__link" activeClassName="Navbar__link--active">
-+ Project
-          </NavLink>
+          <NavLink to="/add-project" className="Navbar__link" activeClassName="Navbar__link--active">+ Project</NavLink>
         </nav>
 
         <Authentication className="Navbar__auth" />

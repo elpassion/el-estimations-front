@@ -1,11 +1,13 @@
 import React from 'react';
-import { shape, string, arrayOf, number } from 'prop-types';
+import { shape, string, arrayOf, number, func } from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 
 import namesString from '../helpers/namesString';
 
-function ProjectPreview({ project }) {
+function ProjectPreview({ project, myTeams, onAssignButtonClick }) {
+  const myUsefulTeams = myTeams.filter(team => project.teams.find(projectTeam => projectTeam.id === team.id));
+
   return (
     <article className={ classNames(['ProjectPreview', { 'ProjectPreview--inactive': project.status === 'Done' }]) }>
       <header className="ProjectPreview__header">
@@ -29,8 +31,22 @@ function ProjectPreview({ project }) {
         { moment(project.when).format('Do MMMM YYYY, kk:mm') }
       </p>
 
-      {/* eslint-disable-next-line */}
-      <a className="ProjectPreview__link" href="#">see details &rsaquo;</a>
+      { myUsefulTeams.length > 0 && (
+        <div className="ProjectPreview__actions">
+          <strong>Join as: </strong>
+          { myUsefulTeams.map((team, index) => (
+            <button
+              key={ index }
+              className="button ProjectPreview__action"
+              type="button"
+              onClick={ () => onAssignButtonClick({ projectId: project.id, teamId: team.id }) }
+            >
+              { team.name }
+            </button>
+          ))
+          }
+        </div>
+      ) }
     </article>
   );
 }
@@ -47,6 +63,17 @@ ProjectPreview.propTypes = {
       name: string.isRequired,
     })),
   }).isRequired,
+  myTeams: arrayOf(shape({
+    id: number.isRequired,
+    name: string.isRequired,
+  })),
+  onAssignButtonClick: func,
+};
+
+ProjectPreview.defaultProps = {
+  myTeams: [],
+  onAssignButtonClick: () => {
+  },
 };
 
 export default ProjectPreview;

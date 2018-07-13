@@ -29,9 +29,14 @@
     margin-top: get($spacing, 'small');
   }
 
-  &__link {
-    display: block;
+  &__actions {
+    display: flex;
+    align-items: baseline;
     margin-top: get($spacing, 'medium');
+  }
+
+  &__action {
+    margin-left: get($spacing);
   }
 
   &:hover {
