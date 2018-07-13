@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, bool, func, arrayOf, shape } from 'prop-types';
+import { string, bool, func, arrayOf, shape, oneOfType, array } from 'prop-types';
 import Select from 'react-select';
 import fieldStateClasses from '../helpers/fieldStateClasses';
 
@@ -13,12 +13,13 @@ export default class SelectField extends React.Component {
     })),
     error: string,
     touched: bool,
-    value: string,
+    value: oneOfType([string, array]),
     disabled: bool,
     placeholder: string,
     onChange: func,
     onBlur: func,
     clearable: bool,
+    multi: bool,
   };
 
   static defaultProps = {
@@ -32,10 +33,15 @@ export default class SelectField extends React.Component {
     onChange: () => {},
     onBlur: () => {},
     clearable: true,
+    multi: false,
   };
 
   handleChange = (option) => {
-    this.props.onChange(this.props.name, option ? option.value : null);
+    if (!this.props.multi) {
+      this.props.onChange(this.props.name, option ? option.value : null);
+    } else {
+      this.props.onChange(this.props.name, option);
+    }
   };
 
   handleBlur = () => {
@@ -43,7 +49,7 @@ export default class SelectField extends React.Component {
   };
 
   render() {
-    const { name, label, options, error, touched, value, disabled, placeholder, clearable } = this.props;
+    const { name, label, options, error, touched, value, disabled, placeholder, clearable, multi } = this.props;
 
     return (
       <div className={ fieldStateClasses(name, this.props) }>
@@ -52,6 +58,7 @@ export default class SelectField extends React.Component {
 
         <Select
           clearable={ clearable }
+          multi={ multi }
           placeholder={ placeholder }
           disabled={ disabled }
           className="field__select"

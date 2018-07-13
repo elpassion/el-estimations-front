@@ -1,0 +1,14 @@
+$select-input-border-radius: get($radii);
+$select-input-border-focus: $c-border-dark;
+$select-input-border-color: $c-border;
+$select-input-height: (16px * $button-height / 1em + 2px);
+$select-text-color: $c-text;
+$select-menu-max-height: $select-dropdown-height;
+$select-option-focused-bg: lighten($c-accent-hover, 10%);
+$select-option-selected-bg: $c-accent;
+
+@import '../../../../node_modules/react-select/scss/default.scss';
+
+.Select:focus {
+  outline: none;
+}
