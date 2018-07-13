@@ -31,20 +31,19 @@ function ProjectPreview({ project, myTeams, onAssignButtonClick }) {
         { moment(project.when).format('Do MMMM YYYY, kk:mm') }
       </p>
 
-      { myUsefulTeams.length > 0 && (
+      { (project.status !== 'Done' && myUsefulTeams.length > 0) && (
         <div className="ProjectPreview__actions">
           <strong>Join as: </strong>
           { myUsefulTeams.map((team, index) => (
             <button
               key={ index }
-              className="button ProjectPreview__action"
+              className="button ProjectPreview__action js_killerFeature"
               type="button"
               onClick={ () => onAssignButtonClick({ projectId: project.id, teamId: team.id }) }
             >
               { team.name }
             </button>
-          ))
-          }
+          )) }
         </div>
       ) }
     </article>

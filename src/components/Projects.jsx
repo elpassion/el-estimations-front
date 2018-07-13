@@ -13,6 +13,7 @@ export default class Projects extends React.Component {
 
   static defaultProps = {
     me: {
+      id: null,
       teams: [],
     },
   };
@@ -26,8 +27,15 @@ export default class Projects extends React.Component {
   }
 
   onAssignButtonClick = ({ projectId, teamId }) => {
-    // eslint-disable-next-line
-    console.log(`assign me to project ${projectId} as ${teamId}`);
+    const {client, me} = this.props;
+    client.post('/assignees/', {
+      assignee: me.id,
+      project: projectId,
+      team: teamId
+    }).then(() => {
+      this.getData()
+    });
+
   };
 
   async getData() {
@@ -43,8 +51,8 @@ export default class Projects extends React.Component {
 
         { projects.length < 1 ? (<p>no projects</p>) : (
           <ul>
-            { projects.map((project, index) => (
-              <li key={ index }>
+            { projects.map(project => (
+              <li key={ project.id }>
                 <ProjectPreview
                   project={ project }
                   myTeams={ this.props.me.teams }
